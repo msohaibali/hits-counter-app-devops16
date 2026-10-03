@@ -6,7 +6,9 @@ services:
         - "8000:8000"
         depends_on:
         - redis
-    
+        networks:
+        - app-network
+
     redis:
         image: redis:alpine
         ports:
@@ -14,6 +16,12 @@ services:
         restart: always
         volumes:
         - redis_data:/data
+        networks:
+        - app-network
 
 volumes:
     redis_data: {}
+
+networks:
+    app-network:
+        driver: bridge
